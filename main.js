@@ -4,7 +4,7 @@ import { lorenzAttractorClass } from "./lorenzAttractorClass";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 const scene = new THREE.Scene();
-const lorentz = new lorenzAttractorClass();
+const lorenz = new lorenzAttractorClass();
 //CAMERA
 const camera = new THREE.PerspectiveCamera(
   45,
@@ -27,13 +27,13 @@ renderer.render(scene, camera);
 //HELPER
 const controls = new OrbitControls(camera, renderer.domElement);
 const gridHelper = new THREE.GridHelper(200, 50);
-scene.add(gridHelper);
+//scene.add(gridHelper);
 
 //LIGHT
 const ambientLight = new THREE.AmbientLight(0xffffff);
 scene.add(ambientLight);
 
-//ADDS LORENTZ GROUP AND ALL ITS POINTS
+//ADDS lorenz GROUP AND ALL ITS POINTS
 const allPoints = new THREE.Group();
 scene.add(allPoints);
 
@@ -44,8 +44,8 @@ function animate() {
 
   controls.update();
 
-  lorentz.draw();
-  allPoints.add(lorentz.getLine());
+  lorenz.draw();
+  allPoints.add(lorenz.getLine());
 
   renderer.render(scene, camera);
 }
