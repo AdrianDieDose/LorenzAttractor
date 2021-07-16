@@ -33,35 +33,20 @@ scene.add(gridHelper);
 const ambientLight = new THREE.AmbientLight(0xffffff);
 scene.add(ambientLight);
 
-//ADD SPHERE FUNCTION
-
+//ADDS LORENTZ GROUP AND ALL ITS POINTS
 const allPoints = new THREE.Group();
-let prevVect = new THREE.Vector3(0, 0, 0);
-const addPoint = () => {
-  const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
-  const pointVec = [];
-  pointVec.push(prevVect);
-  lorentz.draw();
-  pointVec.push(new THREE.Vector3(lorentz.getX, lorentz.getY, lorentz.getZ));
-  prevVect = new THREE.Vector3(lorentz.getX, lorentz.getY, lorentz.getZ);
-
-  console.log(pointVec);
-  const geometry = new THREE.BufferGeometry().setFromPoints(pointVec);
-  const line = new THREE.Line(geometry, material);
-
-  scene.add(line);
-};
-
 scene.add(allPoints);
 
 //MAIN LOOP
 controls.update();
 function animate() {
   requestAnimationFrame(animate);
+
   controls.update();
+
   lorentz.draw();
-  addPoint();
-  //console.log(lorentz.dt);
+  allPoints.add(lorentz.getLine());
+
   renderer.render(scene, camera);
 }
 
